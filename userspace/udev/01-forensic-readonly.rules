@@ -1,0 +1,2 @@
+# Mark new block devices as read-only
+ACTION=="add", SUBSYSTEM=="block", KERNEL!="ram*", RUN+="/usr/sbin/wrtblk %k"

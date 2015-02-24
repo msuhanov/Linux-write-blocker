@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Mark a specified block device as read-write
+[ $# -eq 1 ] || exit
+[ ! -z "$1" ] || exit
+bdev="$1"
+[ -b "/dev/$bdev" ] || exit
+[ ! -z ${bdev##loop*} ] || exit
+blockdev --setrw "/dev/$bdev" || logger "wrtblk: blockdev --setrw /dev/$bdev failed!"
+
+# Mark a parent block device as read-write
+syspath=$(echo /sys/block/*/"$bdev")
+[ "$syspath" = "/sys/block/*/$bdev" ] && exit
+dir=${syspath%/*}
+parent=${dir##*/}
+[ -b "/dev/$parent" ] || exit
+blockdev --setrw "/dev/$parent" || logger "wrtblk: blockdev --setrw /dev/$parent failed!"
