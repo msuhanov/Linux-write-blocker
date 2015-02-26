@@ -52,7 +52,7 @@ The patch successfully blocks flush requests going to a device. Some programs (e
 If you experience any problems with mounting a file system using the *ntfs-3g* driver, make sure that you include the "ro" mount option (use *mount -t ntfs-3g -o ro /dev/sda1 /mnt/sda1/* instead of *mount -t ntfs-3g /dev/sda1 /mnt/sda1/*).
 
 ### In-memory modifications
-Some changes to a mounted file system made by a file system driver can be cached in memory, although they won't reach a physical drive with the patch enabled. In this situation, reading a cached data block with a userspace program (e.g. *dd* or *md5sum*) will result in inconsistency between data received by a userspace program and data actually stored on a drive, i.e. a userspace program will get the bytes from cache, not from a drive. Unmounting a file system will bring things back to normal.
+Some changes to a mounted file system made by a file system driver can be cached in memory, although they won't reach a physical drive (with the patch enabled and a block device marked as read-only, of course). In this situation, reading a "modified" data block with a userspace program (e.g. *dd* or *md5sum*) will result in inconsistency between data received by a userspace program and data actually stored on a drive, i.e. a userspace program will get the bytes from cache (containing modifications from a driver), not from a drive (no modifications here). Unmounting a file system will bring things back to normal.
 
 ## Userspace helpers
 There are several userspace helpers included to this repository:
