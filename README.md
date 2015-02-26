@@ -19,7 +19,7 @@ The most successful attempt to neutralize possible writes to a block device was 
 In order to support file systems in native multiple devices configurations, we need a better write blocking approach.
  
 ## Concepts
-We utilize the existing facility of marking a block device as read-only and add read-only checks to a common spot in the block device driver. This allows us to block all write and discard requests originating from kernel drivers ignoring the read-only mode of a block device; this also allows us to keep the variety of physical storage device drivers untouched. Our modification is removing the need of the loop device driver, because its primary advantage, the ability to stop write and discard requests from hitting the physical drive, will be replicated in the block device driver.
+We utilize the existing facility of marking a block device as read-only and add read-only checks to a common spot in the block device driver. This allows us to block all write and discard requests originating from kernel drivers ignoring the read-only mode of a block device; this also allows us to keep the variety of physical storage device drivers untouched. Our modification is removing the need for the loop device driver, because its primary advantage, the ability to stop write and discard requests from hitting the physical drive, will be replicated in the block device driver.
 
 In particular, we modify the *generic_make_request_checks* function and insert the code used to end I/O processing when a write or discard request is issued to a read-only block device. This modification allows us to intercept write and discard requests at the lowest level possible in the block device driver.
 
