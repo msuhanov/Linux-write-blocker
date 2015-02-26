@@ -59,3 +59,8 @@ There are several userspace helpers included to this repository:
 - *wrtblk-disable*: the script to mark a specified block device and its parent block device as *read-write*;
 - *01-forensic-readonly.rules*: the *udev* rule to mark new block devices appearing in a system as read-only using the *wrtblk* script (warning: hard-coded path inside).
 
+## Performance degradation
+No performance degradation was detected after applying the patch.
+
+## Debugging
+This repository contains the simple *forensic-tracer* kernel module that will log all write and discard requests hitting the *generic_make_request_checks* function (thanks to the *Kprobes* system). Tapping this function is better than intercepting requests inside the *submit_bio* void (like the *block_dump* interface does).
