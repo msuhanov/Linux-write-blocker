@@ -2,7 +2,7 @@
 The kernel patch and userspace tools to enable Linux software write blocking. Useful for computer forensics, incident response and data recovery.
 
 ## Background
-At present, there are no universal ways to mount a file system truly read-only in Linux. For example, mounting a file system with "ro" option (command line example: *mount -o ro /dev/sda1 /mnt/sda1/*) doesn't guarantee that a kernel driver will not write to a corresponding block device. According to the man page (*man 8 mount*, the "-r" option):
+At present, there are no universal ways to mount a file system truly read-only in Linux. For example, mounting a file system with the "ro" option (command line example: *mount -o ro /dev/sda1 /mnt/sda1/*) doesn't guarantee that a kernel driver will not write to a corresponding block device. According to the man page (*man 8 mount*, the "-r" option):
 >Note that, depending on the filesystem type,  state  and  kernel
 >behavior,  the  system may still write to the device.  For exam‐
 >ple, ext3 and ext4 will replay the journal if the filesystem  is
