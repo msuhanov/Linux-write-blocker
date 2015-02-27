@@ -4,7 +4,10 @@ The kernel patch and userspace tools to enable Linux software write blocking. Us
 ## Background
 At present, there are no universal ways to mount a file system truly read-only in [vanilla] Linux. For example, mounting a file system with the "ro" option (command line example: *mount -o ro /dev/sda1 /mnt/sda1/*) doesn't guarantee that a kernel driver will not write to a corresponding block device. According to the man page (*man 8 mount*, the "-r" option):
 >-**r, --read-only**
+>
 >       Mount the filesystem read-only. A synonym is **-o ro**.
+>
+>
 >       Note that, depending on the filesystem type, state and kernel behavior, the system may still write to the device. For example, ext3 and ext4 will replay the journal if the filesystem is dirty. To prevent this kind of write access, you may want to mount an ext3 or ext4 filesystem with the **ro,noload** mount options or set the block device itself to read-only mode, see the **blockdev**(8) command.
 
 Various file system drivers support additional mount options to disable recovery and/or journaling operations. For example, one can use the combination of "ro" and "noload" mount options to disable journal recovery of Ext3/4 file systems (as suggested above, command line example: *mount -o ro,noload /dev/sda1 /mnt/sda1/*); but these options don't protect Ext3/4 file systems against automatic orphan inodes deletion performed by a kernel driver. Similarly, you can't completely disable journaling in ReiserFS (the support of the "nolog" mount option wasn't fully implemented in the driver). Other data alteration issues may be hidden in the Linux source code as well.
