@@ -7,7 +7,7 @@ At present, there are no universal ways to mount a file system truly read-only i
 >       Mount the filesystem read-only. A synonym is **-o ro**.<br>
 >       Note that, depending on the filesystem type, state and kernel behavior, the system may still write to the device. For example, ext3 and ext4 will replay the journal if the filesystem is dirty. To prevent this kind of write access, you may want to mount an ext3 or ext4 filesystem with the **ro,noload** mount options or set the block device itself to read-only mode, see the **blockdev**(8) command.
 
-Various file system drivers support additional mount options to disable recovery and/or journaling operations. For example, one can use the combination of "ro" and "noload" mount options to disable journal recovery of Ext3/4 file systems (as suggested above, command line example: *mount -o ro,noload /dev/sda1 /mnt/sda1/*); but these options don't protect Ext3/4 file systems against automatic orphan inodes deletion performed by a kernel driver. Similarly, you can't completely disable journaling in ReiserFS (the support of the "nolog" mount option wasn't fully implemented in the driver). Other data alteration issues may be hidden in the Linux source code as well.
+Various file system drivers support additional mount options to disable recovery and/or journaling operations. For example, one can use the combination of "ro" and "noload" mount options to disable journal recovery when mounting Ext3/4 file systems "read-only" (as suggested above, command line example: *mount -o ro,noload /dev/sda1 /mnt/sda1/*); but these options don't protect Ext3/4 file systems against automatic orphan inodes deletion performed by a kernel driver on a "read-only" file system (and there is no explicit mount option to disable orphan inodes deletion). Similarly, you can't completely disable journaling in ReiserFS (the support of the "nolog" mount option wasn't fully implemented in the driver – journal replays aren't disabled by this option). Other data alteration issues may be hidden in the Linux source code as well.
 
 Yet another way to mount a file system "read-only" is to mark a corresponding block device as read-only (using *blockdev* or *hdparm*, both programs do the same system call to mark a block device as read-only; command line examples: *blockdev --setro /dev/sda1; blockdev --setro /dev/sda* and *hdparm -r1 /dev/sda1; hdparm -r1 /dev/sda*). According to the man page (*man 8 hdparm*, the "-r" option):
 >-r   Get/set read-only flag for the device. When set, Linux disallows write operations on the device.
@@ -68,6 +68,9 @@ No performance degradation was detected after applying the patch.
 
 ## Debugging
 This repository contains the simple kernel module (*forensic-tracer*) to log all write and discard requests hitting the *generic_make_request_checks* function (thanks to the *Kprobes* subsystem). Tapping this function is better than intercepting requests inside the *submit_bio* void (like the *block_dump* interface does).
+
+## Validation
+See the *validation* directory in this repository.
 
 # Author
 Maxim Suhanov
