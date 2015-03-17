@@ -11,7 +11,7 @@ The *Linux LVM mirror.ova* file contains a virtual machine with two drives makin
 
 Several popular live forensic distributions automatically activate LVM volumes (when running in the forensic / write blocking mode), thus triggering their synchronization if required (*Fig. 2-3*).
 
-<img src="https://raw.githubusercontent.com/msuhanov/Linux-write-blocker/master/validation/lvm/images/2.png" alt="Fig. 2" /><br>*Fig. 2*<br>
+<img src="https://raw.githubusercontent.com/msuhanov/Linux-write-blocker/master/validation/lvm/images/2.png" alt="Fig. 2" /><br>*Fig. 2*<br><br>
 <img src="https://raw.githubusercontent.com/msuhanov/Linux-write-blocker/master/validation/lvm/images/3.png" alt="Fig. 3" /><br>*Fig. 3*
 
 This results in a text file on */dev/sda1* being implicitly deleted by the LVM driver (*Fig. 4*).
