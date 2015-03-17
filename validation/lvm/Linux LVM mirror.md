@@ -9,7 +9,7 @@ The *Linux LVM mirror.ova* file contains a virtual machine with two drives makin
 
 <img src="https://raw.githubusercontent.com/msuhanov/Linux-write-blocker/master/validation/lvm/images/1.png" alt="Fig. 1" /><br>*Fig. 1*
 
-Several popular live forensic distributions automatically activate LVM volumes, thus triggering their synchronization if required (*Fig. 2-3*).
+Several popular live forensic distributions automatically activate LVM volumes (when running in the forensic / write blocking mode), thus triggering their synchronization if required (*Fig. 2-3*).
 
 <img src="https://raw.githubusercontent.com/msuhanov/Linux-write-blocker/master/validation/lvm/images/2.png" alt="Fig. 2" /><br>*Fig. 2*<br>
 <img src="https://raw.githubusercontent.com/msuhanov/Linux-write-blocker/master/validation/lvm/images/3.png" alt="Fig. 3" /><br>*Fig. 3*
