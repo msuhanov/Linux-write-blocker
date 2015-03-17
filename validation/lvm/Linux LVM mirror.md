@@ -21,4 +21,4 @@ This results in a text file on */dev/sda1* being implicitly deleted by the LVM d
 ### Grml 2014.11
 Grml 2014.11 includes the kernel patch available in this repository along with their own userspace tools to mark block devices as read-only (in the *Forensic Mode*). Since no LVM volumes are being automatically activated by Grml 2014.11 in the forensic mode, we need to activate them manually. As you can see (*Fig. 5*), Grml 2014.11 successfully blocks write requests going to the drives, and the data remains untouched.
 
-<img src="https://raw.githubusercontent.com/msuhanov/Linux-write-blocker/master/validation/lvm/images/5.png" alt="Fig. 5" />
+<img src="https://raw.githubusercontent.com/msuhanov/Linux-write-blocker/master/validation/lvm/images/5.png" alt="Fig. 5" /><br>*Fig. 5*
