@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Mark a specified block device as read-only
+[ $# -eq 1 ] || exit
+[ ! -z "$1" ] || exit
+bdev="$1"
+[ -b "/dev/$bdev" ] || exit
+[ ! -z ${bdev##loop*} ] || exit
+blockdev --setro "/dev/$bdev" || logger "wrtblk: blockdev --setro /dev/$bdev failed!"
+
+# Mark all child block devices as read-only
+syspath=$(echo /sys/block/"$bdev"/*/dev)
+[ "$syspath" = "/sys/block/"$bdev"/*/dev" ] && exit
+for child in $syspath; do
+	dir=${child%/*}
+	partition=${dir##*/}
+	[ -b "/dev/$partition" ] || continue
+	blockdev --setro "/dev/$partition" || logger "wrtblk: blockdev --setro /dev/$partition failed!"
+done
