@@ -61,7 +61,7 @@ There are several userspace helpers included to this repository:
 - *01wrtblk_all*: the script to mark all available block devices (except loop devices) as read-only;
 - *wrtblk*: the script to mark a specified block device (e.g. "sdb1" or "sdc") and its parent block device as read-only;
 - *wrtblk-disable*: the script to mark a specified block device and its parent block device as *read-write*;
-- *wrtblk-ioerr*: the script to mark a specified block device and its child block devices as read-only (used to handle faulty drives).
+- *wrtblk-ioerr*: the script to mark a specified block device and its child block devices as read-only (used to handle faulty drives);
 - *01-forensic-readonly.rules*: the *udev* rule to mark new block devices appearing in a system as read-only using the *wrtblk* script, as well as to handle faulty drives using the *wrtblk-ioerr* script (warning: hard-coded paths inside).
 
 ## Performance degradation
