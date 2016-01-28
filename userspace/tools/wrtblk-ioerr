@@ -9,11 +9,10 @@ bdev="$1"
 blockdev --setro "/dev/$bdev" || logger "wrtblk: blockdev --setro /dev/$bdev failed!"
 
 # Mark all child block devices as read-only
-syspath=$(echo /sys/block/"$bdev"/*/dev)
-[ "$syspath" = "/sys/block/"$bdev"/*/dev" ] && exit
-for child in $syspath; do
+for child in /sys/block/"$bdev"/*/dev; do
 	dir=${child%/*}
 	partition=${dir##*/}
+	[ "$partition" = '*' ] && break
 	[ -b "/dev/$partition" ] || continue
 	blockdev --setro "/dev/$partition" || logger "wrtblk: blockdev --setro /dev/$partition failed!"
 done
