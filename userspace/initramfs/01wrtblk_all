@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Mark all available block devices as read-only (except loop devices)
-for device in /dev/*; do
+for device in /dev/* /dev/*/*; do
 	if [ ! -h "$device" ] && [ -b "$device" ] && [ ! -z ${device##/dev/loop*} ]; then
 		# Check if medium is present		
 		if blockdev --getsz "$device" > /dev/null 2>&1; then

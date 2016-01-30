@@ -9,9 +9,11 @@ bdev="$1"
 blockdev --setro "/dev/$bdev" || logger "wrtblk: blockdev --setro /dev/$bdev failed!"
 
 # Mark a parent block device as read-only
+bdev=$(echo "$bdev" | sed 's/\//!/g')
 syspath=$(echo /sys/block/*/"$bdev")
 [ "$syspath" = "/sys/block/*/$bdev" ] && exit
 dir=${syspath%/*}
 parent=${dir##*/}
+parent=$(echo "$parent" | sed 's/!/\//g')
 [ -b "/dev/$parent" ] || exit
 blockdev --setro "/dev/$parent" || logger "wrtblk: blockdev --setro /dev/$parent failed!"
