@@ -68,7 +68,7 @@ There are several userspace helpers included to this repository:
 - *01-forensic-readonly.rules*: the *udev* rule to mark new block devices appearing in a system as read-only using the *wrtblk* script, as well as to handle faulty drives using the *wrtblk-ioerr* script (warning: hard-coded paths inside).
 
 ## Limitations
-Any active software write blocker can be bypassed by another program. In particular, the patch doesn't protect a device against write commands sent through the *SG_IO* interface (this interface allows a program to send arbitrary SCSI commands to a device). Because of this, be careful when running commands from *sg3_utils* that alter data on a device.
+Any active software write blocker can be bypassed by another program. In particular, the patch doesn't protect a device against write commands sent through the *SG_IO* interface (this interface allows a program to send arbitrary SCSI commands to a device). Because of this, be careful when running commands from *sg3_utils* that alter data on a device (*hdparm* is using the *SG_IO* interface too).
 
 ## Performance degradation
 No performance degradation was detected after applying the patch.
