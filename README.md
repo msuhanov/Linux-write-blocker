@@ -67,11 +67,16 @@ There are several userspace helpers included to this repository:
 - *wrtblk-ioerr*: the script to mark a specified block device and its child block devices as read-only (used to handle faulty drives);
 - *01-forensic-readonly.rules*: the *udev* rule to mark new block devices appearing in a system as read-only using the *wrtblk* script, as well as to handle faulty drives using the *wrtblk-ioerr* script (warning: hard-coded paths inside).
 
+## Limitations
+Any active software write blocker can be bypassed by another program. In particular, the patch doesn't protect a device against write commands sent through the *SG_IO* interface (this interface allows a program to send arbitrary SCSI commands to a device). Because of this, be careful when running commands from *sg3_utils* that alter data on a device.
+
 ## Performance degradation
 No performance degradation was detected after applying the patch.
 
 ## Debugging
 This repository contains the simple kernel module (*forensic-tracer*) to log all write and discard requests hitting the *generic_make_request_checks* function (thanks to the *Kprobes* subsystem). Tapping this function is better than intercepting requests inside the *submit_bio* void (like the *block_dump* interface does).
+
+*This module is no longer supported!*
 
 ## Validation
 See the *validation* directory in this repository.
