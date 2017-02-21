@@ -28,7 +28,7 @@ In particular, we modify the *generic_make_request_checks* function and insert t
 ## How to install
 Apply the patch to the source code of your kernel and recompile it.
 
-*The patch was written for Linux 3.15.1, but it remains compatible with newer versions of Linux.*
+*The patch was originally written for Linux 3.15.1, but it remains compatible with some newer versions of Linux. Additionally, the new version for Linux 4.10 is available.*
 
 ## How to use
 Simply run the following command: _blockdev --setro /dev/sdb*_ (assuming */dev/sdb* is the evidence to be write protected).
